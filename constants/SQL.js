@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { Alert, AsyncStorage, Text, View } from 'react-native';
 import CustomAlert from '../components/CustomAlert';
 
-const URL = 'http://10.1.12.39:80/AppQuemado/';
+const URL = 'http://10.1.12.39:80/YetiArt/';
+const getModelos = 'api/modelo/get_modelos.php';
+const getInfoModelos = 'api/modelo/get_info_modelos.php';
+const createModelo = 'api/modelo/crea_modelo.php';
+
 const login = 'api/usuario/valida_usuario.php';
 const createUser = 'api/usuario/create_user.php';
 const getUsers = 'api/usuario/read.php';
@@ -14,6 +18,10 @@ const quemadoBoleto = 'api/boleto/quemado_boleto.php';
 const apiFont = 'http://www.fontsquirrel.com/api/fontlist/all';
 const familyDetail = 'http://www.fontsquirrel.com/api/familyinfo/'; //Falta family_urlname;
 const downloadFont = 'http://www.fontsquirrel.com/fontfacekit/'; //Falta family_urlname;
+
+/* SELECT M.idModelo, M.Nombre, C.Hexadecimal, CAT.nombreCategoria, CAP.nombreCapacidad, md.Imagen FROM `Modelos` 
+AS M INNER JOIN modelodetalles as md ON M.idModelo = md.idModelo INNER JOIN Colores AS C ON md.idColor = C.idColor INNER JOIN Categorias as CAT ON M.idCategoria = CAT.idCategoria 
+INNER JOIN Capacidad AS CAP ON M.idCapacidad = CAP.idCapacidad*/
 
 export default class SQL extends Component {
 	constructor(props) {
@@ -281,6 +289,25 @@ export default class SQL extends Component {
 			})
 			.catch((error) => {
 				Alert.alert('Error al obtener corridas.', JSON.stringify(error));
+			});
+	}
+
+	getModelos(changeState) {
+		console.log(getModelos);
+
+		fetch(URL + getModelos, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+			},
+		})
+			.then((response) => response.json())
+			.then((responseJson) => {
+				console.log(responseJson);
+				changeState(responseJson);
+			})
+			.catch((error) => {
+				Alert.alert('Error al obtener modelos.', JSON.stringify(error));
 			});
 	}
 

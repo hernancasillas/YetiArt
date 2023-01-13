@@ -13,6 +13,7 @@ import Favoritas from '../screens/Favoritas';
 import Todas from '../screens/Todas';
 import Laser from '../screens/Laser';
 import PreviewFinal from '../screens/PreviewFinal';
+import Modelos from '../screens/Modelos';
 
 const TabListaOrdenes = createMaterialTopTabNavigator(
 	{
@@ -80,6 +81,7 @@ const VencedorStack = createStackNavigator(
 		Todas: Todas,
 		PreviewFinal: PreviewFinal,
 		Laser: Laser,
+		Modelos: Modelos,
 		TabListaOrdenes: {
 			screen: TabListaOrdenes,
 			navigationOptions: {

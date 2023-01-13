@@ -83,7 +83,7 @@ export default class SidebarAdmin extends Component {
 							}}
 						/>
 						<ListItem
-							key={'4'}
+							key={'2'}
 							bottomDivider
 							titleStyle={{ fontSize: 20, fontFamily: 'Ubuntu Regular' }}
 							title={'Previsualización Final'}
@@ -115,7 +115,7 @@ export default class SidebarAdmin extends Component {
 							}}
 						/>
 						<ListItem
-							key={'2'}
+							key={'4'}
 							bottomDivider
 							titleStyle={{ fontSize: 20, fontFamily: 'Ubuntu Regular' }}
 							title={'Buscar Fonts Web'}
@@ -130,6 +130,22 @@ export default class SidebarAdmin extends Component {
 								navigation.closeDrawer();
 							}}
 						/>
+						{/* <ListItem
+							key={'5'}
+							bottomDivider
+							titleStyle={{ fontSize: 20, fontFamily: 'Ubuntu Regular' }}
+							title={'Modelos Yeti'}
+							leftIcon={{
+								name: 'list',
+								type: 'font-awesome',
+								color: 'black',
+								size: 22,
+							}}
+							onPress={() => {
+								navigation.navigate('Modelos');
+								navigation.closeDrawer();
+							}}
+						/> */}
 
 						{/* <ListItem
 							key={'3'}

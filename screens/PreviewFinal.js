@@ -10,6 +10,8 @@ import {
 	Text,
 	Share,
 	Image,
+	Alert,
+	Modal,
 } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
 import Slider from '@react-native-community/slider';
@@ -17,10 +19,11 @@ import { UbuntuBoldText, UbuntuRegularText } from '../components/StyledText';
 import { TextInput } from 'react-native';
 import { captureRef as takeSnapshotAsync, ViewShot } from 'react-native-view-shot';
 import RNPickerSelect, { defaultStyles } from 'react-native-picker-select';
-import { Icon } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { Dimensions } from 'react-native';
+import ColorPicker from 'react-native-wheel-color-picker';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -30,10 +33,13 @@ export default class PreviewFinal extends React.Component {
 
 		this.state = {
 			search: '',
+			modalVisible: false,
 			nameText: this.props.screenProps.textoPrueba,
 			nameOriginal: this.props.screenProps.textoPrueba,
 			reglon: this.props.screenProps.renglon,
 			fontSize: 25,
+			color: '#aaa1a3',
+			fontNameLabel: '',
 			fontNames: [
 				{ label: '-- VINIL --', value: 'Ubuntu Regular' },
 				{ label: 'Arial Black', value: 'arialbold' },
@@ -197,6 +203,61 @@ export default class PreviewFinal extends React.Component {
 					</TouchableOpacity> */}
 				</View>
 				<View style={{ flex: 1 }}>
+					<Modal
+						animationType="slide"
+						transparent={false}
+						visible={this.state.modalVisible}
+						onRequestClose={() => {
+							Alert.alert('Modal has been closed.');
+						}}
+					>
+						<View
+							style={{
+								flex: 1,
+								width: '80%',
+								alignSelf: 'center',
+								height: '60%',
+								justifyContent: 'center',
+							}}
+						>
+							<TouchableOpacity
+								style={{ right: 20, alignSelf: 'flex-start' }}
+								onPress={() => {
+									this.setState({ modalVisible: false });
+								}}
+							>
+								<Icon name="times" type="font-awesome" color="black" raised />
+							</TouchableOpacity>
+							<ColorPicker
+								ref={(r) => {
+									this.picker = r;
+								}}
+								color={this.state.color}
+								swatchesOnly={this.state.swatchesOnly}
+								onColorChange={this.onColorChange}
+								onColorChangeComplete={(color) => {
+									this.setState({ color });
+								}}
+								thumbSize={40}
+								sliderSize={40}
+								noSnap={true}
+								row={false}
+								swatchesLast={this.state.swatchesLast}
+								swatches={this.state.swatchesEnabled}
+								discrete={this.state.disc}
+							/>
+							<Button
+								title="Cambiar Color"
+								buttonStyle={{ backgroundColor: 'black' }}
+								containerStyle={{ marginTop: 50, marginBottom: 50 }}
+								onPress={() => {
+									this.setState({
+										modalVisible: false,
+									});
+								}}
+							/>
+						</View>
+					</Modal>
 					<View
 						style={{
 							flexDirection: 'row',
@@ -307,11 +368,13 @@ export default class PreviewFinal extends React.Component {
 							}}
 							useNativeAndroidPickerStyle={true}
 							items={this.state.fontNames}
-							onValueChange={(value) => {
-								if (value != '')
+							onValueChange={(value, label) => {
+								if (value != '') {
 									this.setState({
 										modeTerms: value,
+										fontNameLabel: this.state.fontNames[label - 1].label,
 									});
+								}
 							}}
 							style={{
 								...pickerSelectStyles,
@@ -319,9 +382,10 @@ export default class PreviewFinal extends React.Component {
 									top: 15,
 									right: 15,
 								},
+
 								placeholder: {
 									color: 'rgb(200, 200, 200)',
-									fontSize: 20,
+									fontSize: 15,
 									fontWeight: 'normal',
 									fontFamily: 'Ubuntu Regular',
 								},
@@ -339,6 +403,7 @@ export default class PreviewFinal extends React.Component {
 							}}
 							value={this.state.modeTerms}
 						/>
+
 						<View
 							style={{
 								flexDirection: 'row',
@@ -354,9 +419,9 @@ export default class PreviewFinal extends React.Component {
 								Tamaño
 							</UbuntuRegularText>
 							<Slider
-								style={{ width: 200, height: 40 }}
-								minimumValue={10}
-								maximumValue={75}
+								style={{ width: 150, height: 40 }}
+								minimumValue={25}
+								maximumValue={90}
 								minimumTrackTintColor="#AAAAAA"
 								maximumTrackTintColor="#000000"
 								onValueChange={(value) => {
@@ -368,6 +433,16 @@ export default class PreviewFinal extends React.Component {
 							<UbuntuRegularText style={{ fontSize: 18, marginHorizontal: 10 }}>
 								{this.state.fontSize.toFixed(0)}
 							</UbuntuRegularText>
+							<Button
+								containerStyle={{ margin: 10 }}
+								buttonStyle={{ backgroundColor: this.state.color }}
+								title="Color"
+								onPress={() => {
+									this.setState({
+										modalVisible: true,
+									});
+								}}
+							></Button>
 						</View>
 						{this.state.cameraRollUri && (
 							<Image
@@ -389,31 +464,46 @@ export default class PreviewFinal extends React.Component {
 							borderWidth: 0,
 							backgroundColor: 'white',
 							justifyContent: 'center',
-							alignItems: 'center',
+							//alignItems: 'center',
 							padding: 5,
 						}}
 						ref={(view) => {
 							this._container = view;
 						}}
 					>
-						<Text
-							style={{
-								textAlign: 'center',
-								color: '#aaa1a3',
-								fontSize: this.state.fontSize,
-								fontFamily: this.state.modeTerms,
-								lineHeight:
-									this.state.modeTerms == 'theparthenon'
-										? this.state.fontSize > 27
-											? this.state.fontSize + 80
-											: this.state.fontSize + 50
-										: null,
-								borderWidth: 0,
-								letterSpacing: 0,
-							}}
-						>
-							{this.props.screenProps.textoPrueba + ' '}
-						</Text>
+						<View style={styles.viewStyle}>
+							<Text
+								style={
+									(styles.fontTitleStyle,
+									{
+										fontFamily: this.state.modeTerms,
+										fontSize: 30,
+										marginBottom: 10,
+									})
+								}
+							>
+								{this.state.fontNameLabel}
+							</Text>
+							<Text
+								style={{
+									textAlign: 'center',
+									//color: '#aaa1a3',
+									color: this.state.color,
+									fontSize: this.state.fontSize,
+									fontFamily: this.state.modeTerms,
+									lineHeight:
+										this.state.modeTerms == 'theparthenon'
+											? this.state.fontSize > 27
+												? this.state.fontSize + 80
+												: this.state.fontSize + 50
+											: null,
+									borderWidth: 0,
+									letterSpacing: 0,
+								}}
+							>
+								{this.props.screenProps.textoPrueba + ' '}
+							</Text>
+						</View>
 					</View>
 				</View>
 			</View>
@@ -442,16 +532,15 @@ const styles = StyleSheet.create({
 		width: '80%',
 
 		backgroundColor: 'white',
-		shadowColor: '#000',
+		/* shadowColor: '#000',
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.5,
 		shadowRadius: 2,
-		elevation: 1,
+		elevation: 1, */
 		alignSelf: 'center',
 		margin: 10,
 	},
 	fontTitleStyle: {
-		fontSize: 25,
 		paddingLeft: 5,
 	},
 });
@@ -476,7 +565,7 @@ const pickerSelectStyles = StyleSheet.create({
 		elevation: 1,
 	},
 	inputAndroid: {
-		fontSize: 20,
+		fontSize: 15,
 		paddingVertical: 10,
 		paddingHorizontal: 5,
 		borderWidth: 1,

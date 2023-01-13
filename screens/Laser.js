@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { StatusBar, StyleSheet, View, Switch, ScrollView } from 'react-native';
+import {
+	StatusBar,
+	StyleSheet,
+	View,
+	Switch,
+	ScrollView,
+	PanResponder,
+	Dimensions,
+} from 'react-native';
 import { ImageBackground } from 'react-native';
 import {
 	Aldine,
@@ -180,7 +188,11 @@ export default class Laser extends React.Component {
 								{this.state.fontSize.toFixed(0)}
 							</UbuntuRegularText>
 						</View>
+
 						<ScrollView
+							centerContent={true}
+							minimumZoomScale={-5}
+							maximumZoomScale={5}
 							style={{
 								flex: 1,
 							}}
@@ -203,7 +215,10 @@ export default class Laser extends React.Component {
 									Aromatic Ginger
 								</AromaticGinger>
 								<AromaticGinger
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</AromaticGinger>
@@ -211,7 +226,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<Edwardian style={styles.fontTitleStyle}>Edwardian</Edwardian>
 								<Edwardian
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Edwardian>
@@ -221,7 +239,10 @@ export default class Laser extends React.Component {
 									French Script
 								</FrenchScript>
 								<FrenchScript
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</FrenchScript>
@@ -231,7 +252,10 @@ export default class Laser extends React.Component {
 									Freestyle Script
 								</FreestyleScript>
 								<FreestyleScript
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</FreestyleScript>
@@ -239,7 +263,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<Aldine style={styles.fontTitleStyle}>Aldine</Aldine>
 								<Aldine
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Aldine>
@@ -247,7 +274,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<BRUSHSCI style={styles.fontTitleStyle}>Brush Script</BRUSHSCI>
 								<BRUSHSCI
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</BRUSHSCI>
@@ -266,7 +296,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<Andaluz style={styles.fontTitleStyle}>Andaluz</Andaluz>
 								<Andaluz
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Andaluz>
@@ -274,7 +307,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<BankGothic style={styles.fontTitleStyle}>Bank Gothic</BankGothic>
 								<BankGothic
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</BankGothic>
@@ -295,7 +331,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<BRADHITC style={styles.fontTitleStyle}>Bradley Hand</BRADHITC>
 								<BRADHITC
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</BRADHITC>
@@ -306,7 +345,10 @@ export default class Laser extends React.Component {
 									Bubble Gum
 								</BubbleGumSans>
 								<BubbleGumSans
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</BubbleGumSans>
@@ -316,7 +358,10 @@ export default class Laser extends React.Component {
 									Cabin Sketch
 								</CabinSketch>
 								<CabinSketch
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</CabinSketch>
@@ -324,7 +369,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<Curlz style={styles.fontTitleStyle}>Curlz</Curlz>
 								<Curlz
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Curlz>
@@ -358,7 +406,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<Gabriola style={styles.fontTitleStyle}>Gabriola</Gabriola>
 								<Gabriola
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Gabriola>
@@ -366,7 +417,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<Harrington style={styles.fontTitleStyle}>Harrington</Harrington>
 								<Harrington
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Harrington>
@@ -376,7 +430,10 @@ export default class Laser extends React.Component {
 									Haettenschweiler
 								</Haettenschweiler>
 								<Haettenschweiler
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Haettenschweiler>
@@ -399,7 +456,10 @@ export default class Laser extends React.Component {
 									Informal Roman
 								</InformalRoman>
 								<InformalRoman
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</InformalRoman>
@@ -408,7 +468,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<Jasmine style={styles.fontTitleStyle}>Jasmine</Jasmine>
 								<Jasmine
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</Jasmine>
@@ -427,7 +490,10 @@ export default class Laser extends React.Component {
 							<View style={styles.viewStyle}>
 								<JuiceITC style={styles.fontTitleStyle}>Juice ITC</JuiceITC>
 								<JuiceITC
-									style={{ fontSize: this.state.fontSize, textAlign: 'center' }}
+									style={{
+										fontSize: this.state.fontSize,
+										textAlign: 'center',
+									}}
 								>
 									{this.props.screenProps.textoPrueba}
 								</JuiceITC>
@@ -502,10 +568,9 @@ const styles = StyleSheet.create({
 		shadowRadius: 2,
 		elevation: 1,
 		alignSelf: 'center',
-		margin: 10,
 	},
 	fontTitleStyle: {
-		fontSize: 25,
+		fontSize: 20,
 		paddingLeft: 5,
 	},
 });

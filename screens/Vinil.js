@@ -195,6 +195,9 @@ export default class Vinil extends React.Component {
 							</UbuntuRegularText>
 						</View>
 						<ScrollView
+							centerContent={true}
+							minimumZoomScale={-5}
+							maximumZoomScale={5}
 							style={{
 								flex: 1,
 							}}
@@ -674,10 +677,9 @@ const styles = StyleSheet.create({
 		shadowRadius: 2,
 		elevation: 1,
 		alignSelf: 'center',
-		margin: 10,
 	},
 	fontTitleStyle: {
-		fontSize: 25,
+		fontSize: 20,
 		paddingLeft: 5,
 	},
 });
